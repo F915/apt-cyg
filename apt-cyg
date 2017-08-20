@@ -499,7 +499,7 @@ function apt-install {
   # run all postinstall scripts
 
   [ -v noscripts ] && continue
-  find /etc/postinstall -name '*.sh' | while read script
+  ./find /etc/postinstall -name '*.sh' | while read script
   do
     echo Running $script
     $script
