@@ -1,3 +1,13 @@
+This project is forked from "transcode-open". The original auther have been
+stopped providing its support or upgrading.
+I found there are some nonfatal bugs so I forked it and made bugfixing.
+
+---------------------------------------------------------------------------
+
+The original "Readme" are as follows.
+
+---------------------------------------------------------------------------
+
 apt-cyg
 =======
 
