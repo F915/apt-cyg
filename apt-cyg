@@ -168,7 +168,7 @@ function find-workspace {
 function get-setup {
   touch setup.ini
   mv setup.ini setup.ini-save
-  wget -N $mirror/$arch/setup.bz2
+  wget -cN $mirror/$arch/setup.bz2
   if [ -e setup.bz2 ]
   then
     bunzip2 setup.bz2
@@ -388,7 +388,7 @@ function download {
   cd "$cache/$mirrordir/$dn"
   if ! test -e $bn || ! $hash -c <<< "$digest $bn"
   then
-    wget -O $bn $mirror/$dn/$bn
+    wget -c -N -nd $mirror/$dn/$bn
     $hash -c <<< "$digest $bn" || exit
   fi
 
