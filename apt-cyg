@@ -76,7 +76,8 @@ OPERATIONS
     names that match regexp.
 
   category
-    Display all packages that are members of a named category.
+    Display either all packages that are members of a named category or list
+    all available categories if called without argument.
 
   listfiles
     List all files owned by a given package. Multiple packages can be specified
@@ -202,19 +203,23 @@ function apt-update {
 }
 
 function apt-category {
-  check-packages
   find-workspace
-  for pkg in "${pks[@]}"
-  do
-    awk '
-    $1 == "@" {
-      pck = $2
-    }
-    $1 == "category:" && $0 ~ query {
-      print pck
-    }
-    ' query="$pks" setup.ini
-  done
+  if [[ $pks ]]
+  then
+      for pkg in "${pks[@]}"
+      do
+        awk '
+        $1 == "@" {
+          pck = $2
+        }
+        $1 == "category:" && $0 ~ query {
+          print pck
+        }
+        ' query="$pks" setup.ini
+      done
+  else
+      egrep '^category: ' setup.ini | sed -e 's/^category: //' | tr ' ' '\n' | sort | uniq
+  fi
 }
 
 function apt-list {
