@@ -386,9 +386,10 @@ function download {
   esac
   mkdir -p "$cache/$mirrordir/$dn"
   cd "$cache/$mirrordir/$dn"
-  if ! test -e $bn || ! $hash -c <<< "$digest $bn"
+  wget -c -N -nd $mirror/$dn/$bn
+  if ! $hash -c <<< "$digest $bn"
   then
-    wget -c -N -nd $mirror/$dn/$bn
+    wget -N -nd $mirror/$dn/$bn
     $hash -c <<< "$digest $bn" || exit
   fi
 
